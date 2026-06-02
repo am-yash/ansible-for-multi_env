@@ -1,0 +1,24 @@
+---
+
+name:  Dev  Environment
+hosts: dev
+become: true
+
+tasks:
+  name: Update vm
+  package:
+  name: "*"
+  state: latest
+  name: Install Git
+  package:
+  name: git
+  state: present
+  name: Install Docker
+  package:
+  name: docker
+  state: present
+  name: Start Docker
+  service:
+  name: docker
+  state: started
+  enabled: true
