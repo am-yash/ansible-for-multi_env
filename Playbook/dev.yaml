@@ -1,24 +1,21 @@
 ---
+- name: Dev Environment
+  hosts: servers
+  become: true
 
-name:  Dev  Environment
-hosts: dev
-become: true
+  tasks:
 
-tasks:
-  name: Update vm
-  package:
-  name: "*"
-  state: latest
-  name: Install Git
-  package:
-  name: git
-  state: present
-  name: Install Docker
-  package:
-  name: docker
-  state: present
-  name: Start Docker
-  service:
-  name: docker
-  state: started
-  enabled: true
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Start Apache Service
+      service:
+        name: apache2
+        state: started
+        enabled: true
